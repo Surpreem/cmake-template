@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required(VERSION 3.12)
 
-project(sephi)
+project(cmake_template)
 
 # Project basic path
 set(PROJECT_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
