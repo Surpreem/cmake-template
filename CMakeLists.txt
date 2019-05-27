@@ -36,79 +36,92 @@ include(cmake/DownloadProject.cmake)
 
 
 # External projects
+option(ENABLE_GOOGLE_TEST "Enable Google Test and Mock")
+option(ENABLE_ASIO_CPP "Enable ASIO C++")
+option(ENABLE_CATCH "Enable Catch 2 and Trompeloeil")
+option(ENABLE_YAML_CPP "Enable Yaml-cpp")
+
 #
 # google test
-download_project(
-	PROJ googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-	GIT_TAG release-1.8.1
-	${UPDATE_DISCONNECTED_IF_AVAILABLE}
-)
+if(ENABLE_GOOGLE_TEST)
+    download_project(
+        PROJ googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG release-1.8.1
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
 
-# Prevent GoogleTest from overriding our compiler/linker options
-# when building with Visual Studio
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    # Prevent GoogleTest from overriding our compiler/linker options
+    # when building with Visual Studio
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR} EXCLUDE_FROM_ALL)
+    add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR} EXCLUDE_FROM_ALL)
 
-# When using CMake 2.8.11 or later, header path dependencies
-# are automatically added to the gtest and gmock targets.
-# For earlier CMake versions, we have to explicitly add the
-# required directories to the header search path ourselves.
-if (CMAKE_VERSION VERSION_LESS 2.8.11)
-    include_directories("${gtest_SOURCE_DIR}/include"
-                        "${gmock_SOURCE_DIR}/include")
+    # When using CMake 2.8.11 or later, header path dependencies
+    # are automatically added to the gtest and gmock targets.
+    # For earlier CMake versions, we have to explicitly add the
+    # required directories to the header search path ourselves.
+    if (CMAKE_VERSION VERSION_LESS 2.8.11)
+        include_directories("${gtest_SOURCE_DIR}/include"
+                            "${gmock_SOURCE_DIR}/include")
+    endif()
 endif()
 
 #
 # Asio C++
-download_project(
-	PROJ asio
-    GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
-	GIT_TAG asio-1-13-0
-	${UPDATE_DISCONNECTED_IF_AVAILABLE}
-)
+if(ENABLE_ASIO_CPP)
+    download_project(
+        PROJ asio
+        GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
+        GIT_TAG asio-1-13-0
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
 
-ADD_DEFINITIONS(-DASIO_STANDALONE)
+    ADD_DEFINITIONS(-DASIO_STANDALONE)
 
-include_directories(${asio_SOURCE_DIR}/asio/include)
+    include_directories(${asio_SOURCE_DIR}/asio/include)
+endif()
 
 #
 # Catch 2
-download_project(
-	PROJ catch
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-	GIT_TAG v2.7.2
-	${UPDATE_DISCONNECTED_IF_AVAILABLE}
-)
+if(ENABLE_CATCH)
+    download_project(
+        PROJ catch
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG v2.7.2
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
 
-add_subdirectory(${catch_SOURCE_DIR} ${catch_BINARY_DIR} EXCLUDE_FROM_ALL)
-#include_directories(${catch_SOURCE_DIR}/single_include)
+    add_subdirectory(${catch_SOURCE_DIR} ${catch_BINARY_DIR} EXCLUDE_FROM_ALL)
+    #include_directories(${catch_SOURCE_DIR}/single_include)
 
-#
-# Trompeloeil
-download_project(
-	PROJ trompeloeil
-    GIT_REPOSITORY https://github.com/rollbear/trompeloeil.git
-	GIT_TAG v34
-	${UPDATE_DISCONNECTED_IF_AVAILABLE}
-)
+    #
+    # Trompeloeil
+    download_project(
+        PROJ trompeloeil
+        GIT_REPOSITORY https://github.com/rollbear/trompeloeil.git
+        GIT_TAG v34
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
 
-include_directories(${trompeloeil_SOURCE_DIR}/include)
+    include_directories(${trompeloeil_SOURCE_DIR}/include)
+endif()
 
 #
 # yaml-cpp
-download_project(
-	PROJ yamlcpp
-    GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
-	GIT_TAG master
-	${UPDATE_DISCONNECTED_IF_AVAILABLE}
-)
+if(ENABLE_YAML_CPP)
+    download_project(
+        PROJ yamlcpp
+        GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
+        GIT_TAG master
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
 
-set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+    set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 
-add_subdirectory(${yamlcpp_SOURCE_DIR} ${yamlcpp_BINARY_DIR} EXCLUDE_FROM_ALL)
-#include_directories(${yamlcpp_SOURCE_DIR}/include)
+    add_subdirectory(${yamlcpp_SOURCE_DIR} ${yamlcpp_BINARY_DIR} EXCLUDE_FROM_ALL)
+    #include_directories(${yamlcpp_SOURCE_DIR}/include)
+endif()
 
 #
 # External projects end
