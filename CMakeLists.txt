@@ -40,6 +40,7 @@ option(ENABLE_GOOGLE_TEST "Enable Google Test and Mock")
 option(ENABLE_ASIO_CPP "Enable ASIO C++")
 option(ENABLE_CATCH "Enable Catch 2 and Trompeloeil")
 option(ENABLE_YAML_CPP "Enable Yaml-cpp")
+option(ENABLE_SPDLOG "Enable spdlog")
 
 #
 # google test
@@ -121,6 +122,21 @@ if(ENABLE_YAML_CPP)
 
     add_subdirectory(${yamlcpp_SOURCE_DIR} ${yamlcpp_BINARY_DIR} EXCLUDE_FROM_ALL)
     #include_directories(${yamlcpp_SOURCE_DIR}/include)
+endif()
+
+#
+# spdlog
+if(ENABLE_SPDLOG)
+    download_project(
+        PROJ spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog.git
+        GIT_TAG v1.3.1
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
+
+    ADD_DEFINITIONS(-DSPDLOG_COMPILED_LIB)
+
+    add_subdirectory(${spdlog_SOURCE_DIR} ${spdlog_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
 #
