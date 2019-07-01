@@ -19,7 +19,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIB_PATH})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIB_PATH})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BIN_PATH})
 
-include_directories(${INCLUDE_PATH} ${EXTERNAL_PATH})
+# ${SOURCE_PATH}: for including headers in src directory
+# ${PROJECT_ROOT}: for including headers in test directory. The path starts from test directory.
+#  - ex. test/.../...
+include_directories(${INCLUDE_PATH} ${EXTERNAL_PATH} ${SOURCE_PATH} ${PROJECT_ROOT})
 link_directories(${LIB_PATH})
 
 
@@ -52,7 +55,8 @@ if(ENABLE_ASIO_CPP)
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
-    ADD_DEFINITIONS(-DASIO_STANDALONE)
+    # Use when using ASIO 1.12.2 or below
+    #ADD_DEFINITIONS(-DASIO_STANDALONE)
 
     include_directories(${asio_SOURCE_DIR}/asio/include)
 endif()
@@ -157,7 +161,7 @@ if(MSVC)
     add_definitions(-DUNICODE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
 
-    # for Visual Studio
+    # for Visual Studio (use when the warning occurs)
     # boost: https://github.com/boostorg/beast/issues/1272
     # yaml-cpp
     #ADD_DEFINITIONS(-D_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING)
