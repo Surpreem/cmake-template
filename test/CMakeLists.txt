@@ -1,5 +1,11 @@
-#
+﻿#
 # example
+if(ENABLE_CATCH AND ENABLE_BOOST)
+    add_executable(boost_test example/boost_test.cpp)
+    target_link_libraries(boost_test PRIVATE Catch2::Catch2)
+    add_test(NAME test_boost COMMAND boost_test)
+endif()
+
 if(ENABLE_CATCH)
     add_executable(catch_test example/catch_test.cpp)
     target_link_libraries(catch_test PRIVATE Catch2::Catch2)

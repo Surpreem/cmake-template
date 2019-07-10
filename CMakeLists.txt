@@ -40,6 +40,7 @@ include(cmake/DownloadProject.cmake)
 
 # External projects
 option(ENABLE_ASIO_CPP "Enable ASIO C++")
+option(ENABLE_BOOST "Enable Boost C++ Libraries")
 option(ENABLE_CATCH "Enable Catch 2 and Trompeloeil")
 option(ENABLE_GOOGLE_TEST "Enable Google Test and Mock")
 option(ENABLE_SPDLOG "Enable spdlog")
@@ -56,9 +57,23 @@ if(ENABLE_ASIO_CPP)
     )
 
     # Use when using ASIO 1.12.2 or below
-    #ADD_DEFINITIONS(-DASIO_STANDALONE)
+    #add_definitions(-DASIO_STANDALONE)
 
     include_directories(${asio_SOURCE_DIR}/asio/include)
+endif()
+
+#
+# Boost C++ Libraries
+if(ENABLE_BOOST)
+    set(ENV{BOOST_ROOT} ${BOOST_HOME})
+
+    find_package(Boost)
+    include_directories(${Boost_INCLUDE_DIRS})
+    link_directories(${Boost_LIBRARY_DIRS})
+
+    if(BOOST_DYN_LINK)
+        add_definitions(-DBOOST_ALL_DYN_LINK)
+    endif()
 endif()
 
 #
@@ -122,7 +137,7 @@ if(ENABLE_SPDLOG)
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
-    ADD_DEFINITIONS(-DSPDLOG_COMPILED_LIB)
+    add_definitions(-DSPDLOG_COMPILED_LIB)
 
     add_subdirectory(${spdlog_SOURCE_DIR} ${spdlog_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
@@ -164,7 +179,7 @@ if(MSVC)
     # for Visual Studio (use when the warning occurs)
     # boost: https://github.com/boostorg/beast/issues/1272
     # yaml-cpp
-    #ADD_DEFINITIONS(-D_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING)
+    #add_definitions(-D_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING)
 
     # for using windows environment variables
     # https://cmake.org/cmake/help/latest/policy/CMP0074.html

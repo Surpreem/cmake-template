@@ -27,6 +27,21 @@
           "type": "BOOL"
         },
         {
+          "name": "ENABLE_BOOST",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "BOOST_HOME",
+          "value": "C:/Libs/boost_1_70_0",
+          "type": "STRING"
+        },
+        {
+          "name": "BOOST_DYN_LINK",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
           "name": "ENABLE_CATCH",
           "value": "True",
           "type": "BOOL"
@@ -71,6 +86,21 @@
         },
         {
           "name": "ENABLE_ASIO_CPP",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_BOOST",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "BOOST_HOME",
+          "value": "C:/Libs/boost_1_70_0",
+          "type": "STRING"
+        },
+        {
+          "name": "BOOST_DYN_LINK",
           "value": "False",
           "type": "BOOL"
         },
