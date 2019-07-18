@@ -47,6 +47,11 @@
           "type": "BOOL"
         },
         {
+          "name": "ENABLE_FLATBUFFERS",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
           "name": "ENABLE_GOOGLE_TEST",
           "value": "True",
           "type": "BOOL"
@@ -106,6 +111,11 @@
         },
         {
           "name": "ENABLE_CATCH",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_FLATBUFFERS",
           "value": "True",
           "type": "BOOL"
         },

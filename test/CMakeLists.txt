@@ -12,6 +12,12 @@ if(ENABLE_CATCH)
     add_test(NAME test_catch COMMAND catch_test)
 endif()
 
+if(ENABLE_CATCH AND ENABLE_FLATBUFFERS)
+    add_executable(flatbuffers_test example/flatbuffers_test.cpp)
+    target_link_libraries(flatbuffers_test PRIVATE Catch2::Catch2 flatbuffers)
+    add_test(NAME test_flatbuffers COMMAND flatbuffers_test)
+endif()
+
 if(ENABLE_GOOGLE_TEST)
     add_executable(gtest_test example/gtest_test.cpp)
     target_link_libraries(gtest_test PRIVATE gtest gmock_main)

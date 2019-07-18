@@ -42,6 +42,7 @@ include(cmake/DownloadProject.cmake)
 option(ENABLE_ASIO_CPP "Enable ASIO C++")
 option(ENABLE_BOOST "Enable Boost C++ Libraries")
 option(ENABLE_CATCH "Enable Catch 2 and Trompeloeil")
+option(ENABLE_FLATBUFFERS "Enable Flatbuffers")
 option(ENABLE_GOOGLE_TEST "Enable Google Test and Mock")
 option(ENABLE_SPDLOG "Enable spdlog")
 option(ENABLE_YAML_CPP "Enable Yaml-cpp")
@@ -99,6 +100,19 @@ if(ENABLE_CATCH)
     )
 
     include_directories(${trompeloeil_SOURCE_DIR}/include)
+endif()
+
+#
+# flatbuffers
+if(ENABLE_FLATBUFFERS)
+    download_project(
+        PROJ flatbuffers
+        GIT_REPOSITORY https://github.com/google/flatbuffers.git
+        GIT_TAG v1.11.0
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
+
+    add_subdirectory(${flatbuffers_SOURCE_DIR} ${flatbuffers_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
 #
