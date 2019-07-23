@@ -66,11 +66,8 @@ endif()
 #
 # Boost C++ Libraries
 if(ENABLE_BOOST)
-    set(ENV{BOOST_ROOT} ${BOOST_HOME})
-
-    find_package(Boost)
-    include_directories(${Boost_INCLUDE_DIRS})
-    link_directories(${Boost_LIBRARY_DIRS})
+    include_directories(${BOOST_HOME}/include)
+    link_directories(${BOOST_HOME}/lib)
 
     if(BOOST_DYN_LINK)
         add_definitions(-DBOOST_ALL_DYN_LINK)
