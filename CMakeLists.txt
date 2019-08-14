@@ -110,6 +110,7 @@ if(ENABLE_FLATBUFFERS)
     )
 
     add_subdirectory(${flatbuffers_SOURCE_DIR} ${flatbuffers_BINARY_DIR} EXCLUDE_FROM_ALL)
+    include(cmake/flatbuffers_schema_to_cpp.cmake)
 endif()
 
 #

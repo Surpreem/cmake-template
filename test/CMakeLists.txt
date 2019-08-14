@@ -13,7 +13,10 @@ if(ENABLE_CATCH)
 endif()
 
 if(ENABLE_CATCH AND ENABLE_FLATBUFFERS)
-    add_executable(flatbuffers_test example/flatbuffers_test.cpp)
+    compile_flatbuffers_schema_to_cpp(example/monster.fbs)
+    add_executable(flatbuffers_test
+        ${CMAKE_CURRENT_BINARY_DIR}/example/monster_generated.h
+        example/flatbuffers_test.cpp)
     target_link_libraries(flatbuffers_test PRIVATE Catch2::Catch2 flatbuffers)
     add_test(NAME test_flatbuffers COMMAND flatbuffers_test)
 endif()
