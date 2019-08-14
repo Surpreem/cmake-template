@@ -80,7 +80,7 @@ if(ENABLE_CATCH)
     download_project(
         PROJ catch
         GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG v2.7.2
+        GIT_TAG v2.9.2
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
