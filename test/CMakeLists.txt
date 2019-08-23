@@ -13,9 +13,15 @@ if(ENABLE_CATCH)
 endif()
 
 if(ENABLE_CATCH AND ENABLE_FLATBUFFERS)
-    compile_flatbuffers_schema_to_cpp(example/monster.fbs)
+    # full path to fbs
+    compile_flatbuffers_schema_to_cpp(${TEST_PATH}/example/fbs/monster.fbs)
+
+    # need to generate the header and build the project
+    set(fbs_generated
+        ${CMAKE_CURRENT_BINARY_DIR}/fbs/monster_generated.h)
+
     add_executable(flatbuffers_test
-        ${CMAKE_CURRENT_BINARY_DIR}/example/monster_generated.h
+        ${fbs_generated}
         example/flatbuffers_test.cpp)
     target_link_libraries(flatbuffers_test PRIVATE Catch2::Catch2 flatbuffers)
     add_test(NAME test_flatbuffers COMMAND flatbuffers_test)
