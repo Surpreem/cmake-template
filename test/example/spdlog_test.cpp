@@ -1,9 +1,10 @@
-#define CATCH_CONFIG_MAIN
+﻿#define CATCH_CONFIG_MAIN
 
 #include <fstream>
 #include <string>
 
 #include "catch2/catch.hpp"
+#include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
 
@@ -24,6 +25,7 @@ TEST_CASE("spdlog")
 
     // WHEN
     logger->info("Hello, {}!", "World");
+    logger->flush();
 
     // THEN
     ifstream fin(log_file);

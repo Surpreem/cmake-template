@@ -53,7 +53,7 @@ if(ENABLE_ASIO_CPP)
     download_project(
         PROJ asio
         GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
-        GIT_TAG asio-1-13-0
+        GIT_TAG asio-1-14-0
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
@@ -92,7 +92,7 @@ if(ENABLE_CATCH)
     download_project(
         PROJ trompeloeil
         GIT_REPOSITORY https://github.com/rollbear/trompeloeil.git
-        GIT_TAG v34
+        GIT_TAG v35
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
@@ -119,7 +119,7 @@ if(ENABLE_GOOGLE_TEST)
     download_project(
         PROJ googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG release-1.8.1
+        GIT_TAG release-1.10.0
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
@@ -145,7 +145,7 @@ if(ENABLE_SPDLOG)
     download_project(
         PROJ spdlog
         GIT_REPOSITORY https://github.com/gabime/spdlog.git
-        GIT_TAG v1.3.1
+        GIT_TAG v1.4.1
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
@@ -160,7 +160,7 @@ if(ENABLE_YAML_CPP)
     download_project(
         PROJ yamlcpp
         GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
-        GIT_TAG master
+        GIT_TAG yaml-cpp-0.6.3
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
