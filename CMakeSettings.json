@@ -135,6 +135,142 @@
           "type": "BOOL"
         }
       ]
+    },
+    {
+      "name": "x86-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}/build/${name}",
+      "installRoot": "${projectDir}/install/${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x86" ],
+      "variables": [
+        {
+          "name": "CMAKE_BUILD_TYPE",
+          "value": "Debug",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_CXX_FLAGS_DEBUG",
+          "value": "/MDd /Zi /Ob0 /Od /RTC1 /JMC",
+          "type": "STRING"
+        },
+        {
+          "name": "ENABLE_ASIO_CPP",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_BOOST",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "BOOST_HOME",
+          "value": "C:/Libs/boost_1_71_0",
+          "type": "STRING"
+        },
+        {
+          "name": "BOOST_DYN_LINK",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_CATCH",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_FLATBUFFERS",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_GOOGLE_TEST",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_SPDLOG",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_YAML_CPP",
+          "value": "True",
+          "type": "BOOL"
+        }
+      ]
+    },
+    {
+      "name": "x86-Release",
+      "generator": "Ninja",
+      "configurationType": "RelWithDebInfo",
+      "buildRoot": "${projectDir}/build/${name}",
+      "installRoot": "${projectDir}/install/${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x86" ],
+      "variables": [
+        {
+          "name": "CMAKE_BUILD_TYPE",
+          "value": "RelWithDebInfo",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_CXX_FLAGS_RELWITHDEBINFO",
+          "value": "/MD /Zi /O2 /Ob1 /DNDEBUG",
+          "type": "STRING"
+        },
+        {
+          "name": "ENABLE_ASIO_CPP",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_BOOST",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "BOOST_HOME",
+          "value": "C:/Libs/boost_1_71_0",
+          "type": "STRING"
+        },
+        {
+          "name": "BOOST_DYN_LINK",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_CATCH",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_FLATBUFFERS",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_GOOGLE_TEST",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_SPDLOG",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_YAML_CPP",
+          "value": "True",
+          "type": "BOOL"
+        }
+      ]
     }
   ]
 }
