@@ -28,7 +28,7 @@
         },
         {
           "name": "ENABLE_BOOST",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
@@ -43,27 +43,27 @@
         },
         {
           "name": "ENABLE_CATCH",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_FLATBUFFERS",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_GOOGLE_TEST",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_SPDLOG",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_YAML_CPP",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         }
       ]
@@ -96,7 +96,7 @@
         },
         {
           "name": "ENABLE_BOOST",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
@@ -111,27 +111,27 @@
         },
         {
           "name": "ENABLE_CATCH",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_FLATBUFFERS",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_GOOGLE_TEST",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_SPDLOG",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_YAML_CPP",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         }
       ]
@@ -164,7 +164,7 @@
         },
         {
           "name": "ENABLE_BOOST",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
@@ -179,27 +179,27 @@
         },
         {
           "name": "ENABLE_CATCH",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_FLATBUFFERS",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_GOOGLE_TEST",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_SPDLOG",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_YAML_CPP",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         }
       ]
@@ -232,7 +232,7 @@
         },
         {
           "name": "ENABLE_BOOST",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
@@ -247,27 +247,27 @@
         },
         {
           "name": "ENABLE_CATCH",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_FLATBUFFERS",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_GOOGLE_TEST",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_SPDLOG",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         },
         {
           "name": "ENABLE_YAML_CPP",
-          "value": "True",
+          "value": "False",
           "type": "BOOL"
         }
       ]
