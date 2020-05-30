@@ -41,7 +41,7 @@ include(cmake/DownloadProject.cmake)
 # External projects
 option(ENABLE_ASIO_CPP "Enable ASIO C++")
 option(ENABLE_BOOST "Enable Boost C++ Libraries")
-option(ENABLE_CATCH "Enable Catch 2 and Trompeloeil")
+option(ENABLE_CATCH "Enable Catch2 and Trompeloeil")
 option(ENABLE_FLATBUFFERS "Enable Flatbuffers")
 option(ENABLE_GOOGLE_TEST "Enable Google Test and Mock")
 option(ENABLE_SPDLOG "Enable spdlog")
@@ -53,12 +53,12 @@ if(ENABLE_ASIO_CPP)
     download_project(
         PROJ asio
         GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
-        GIT_TAG asio-1-14-0
+        GIT_TAG asio-1-16-1
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
     # Use when using ASIO 1.12.2 or below
-    #add_definitions(-DASIO_STANDALONE)
+    #add_compile_definitions(ASIO_STANDALONE)
 
     include_directories(${asio_SOURCE_DIR}/asio/include)
 endif()
@@ -70,17 +70,17 @@ if(ENABLE_BOOST)
     link_directories(${BOOST_HOME}/lib)
 
     if(BOOST_DYN_LINK)
-        add_definitions(-DBOOST_ALL_DYN_LINK)
+        add_compile_definitions(BOOST_ALL_DYN_LINK)
     endif()
 endif()
 
 #
-# Catch 2
+# Catch2
 if(ENABLE_CATCH)
     download_project(
         PROJ catch
         GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG v2.9.2
+        GIT_TAG v2.12.2
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
@@ -92,7 +92,7 @@ if(ENABLE_CATCH)
     download_project(
         PROJ trompeloeil
         GIT_REPOSITORY https://github.com/rollbear/trompeloeil.git
-        GIT_TAG v35
+        GIT_TAG v37
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
@@ -105,7 +105,7 @@ if(ENABLE_FLATBUFFERS)
     download_project(
         PROJ flatbuffers
         GIT_REPOSITORY https://github.com/google/flatbuffers.git
-        GIT_TAG v1.11.0
+        GIT_TAG v1.12.0
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
@@ -145,11 +145,11 @@ if(ENABLE_SPDLOG)
     download_project(
         PROJ spdlog
         GIT_REPOSITORY https://github.com/gabime/spdlog.git
-        GIT_TAG v1.4.1
+        GIT_TAG v1.6.1
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
-    add_definitions(-DSPDLOG_COMPILED_LIB)
+    add_compile_definitions(SPDLOG_COMPILED_LIB)
 
     add_subdirectory(${spdlog_SOURCE_DIR} ${spdlog_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
@@ -181,27 +181,35 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Compiler options
 message(STATUS "** Setting Compiler options")
-if(MSVC)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     # https://docs.microsoft.com/ko-kr/cpp/porting/modifying-winver-and-win32-winnt
-    add_definitions(-D_WIN32_WINNT=0x0601)
-    add_definitions(-D_UNICODE)
-    add_definitions(-DUNICODE)
+    add_compile_definitions(_WIN32_WINNT=0x0601)
+    add_compile_definitions(_UNICODE)
+    add_compile_definitions(UNICODE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
 
     # for Visual Studio (use when the warning occurs)
     # boost: https://github.com/boostorg/beast/issues/1272
+
     # yaml-cpp
-    #add_definitions(-D_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING)
+    # warning STL4009
+    # - std::allocator<void> is deprecated in C++17.
+    #add_compile_definitions(_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING)
+    
+    # Trompeloeil
+    # warning STL4015
+    # - The std::iterator class template (used as a base class to provide typedefs) is deprecated in C++17.
+    add_compile_definitions(_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING)
 
     # for using windows environment variables
     # https://cmake.org/cmake/help/latest/policy/CMP0074.html
     cmake_policy(SET CMP0074 NEW)
-else()
+
+    # For Visual Studio solution
+    set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-long-long -pedantic -Werror")
 endif()
-
-# For Visual Studio solution
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 add_subdirectory(src)
 add_subdirectory(test)
