@@ -1,5 +1,13 @@
 ﻿#define CATCH_CONFIG_MAIN
 
+#ifdef WIN32
+// spdlog
+// warning C4566: character cannot be represented in the current code page (949)
+// warning C4819: The file contains a character that cannot be represented
+//                in the current code page (949).
+#   pragma warning(disable: 4566 4819)
+#endif
+
 #include <fstream>
 #include <string>
 
@@ -12,7 +20,7 @@ using namespace std;
 
 
 namespace {
-    
+
     const std::string log_file{"log.txt"};
 
 }

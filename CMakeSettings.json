@@ -33,7 +33,7 @@
         },
         {
           "name": "BOOST_HOME",
-          "value": "C:/Libs/boost_1_71_0",
+          "value": "C:/Libs/boost_1_73_0",
           "type": "STRING"
         },
         {
@@ -62,7 +62,17 @@
           "type": "BOOL"
         },
         {
+          "name": "SPDLOG_MAKE_LIB",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
           "name": "ENABLE_YAML_CPP",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_ZMQ",
           "value": "False",
           "type": "BOOL"
         }
@@ -101,7 +111,7 @@
         },
         {
           "name": "BOOST_HOME",
-          "value": "C:/Libs/boost_1_71_0",
+          "value": "C:/Libs/boost_1_73_0",
           "type": "STRING"
         },
         {
@@ -130,7 +140,17 @@
           "type": "BOOL"
         },
         {
+          "name": "SPDLOG_MAKE_LIB",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
           "name": "ENABLE_YAML_CPP",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_ZMQ",
           "value": "False",
           "type": "BOOL"
         }
@@ -169,7 +189,7 @@
         },
         {
           "name": "BOOST_HOME",
-          "value": "C:/Libs/boost_1_71_0",
+          "value": "C:/Libs/boost_1_73_0",
           "type": "STRING"
         },
         {
@@ -198,7 +218,17 @@
           "type": "BOOL"
         },
         {
+          "name": "SPDLOG_MAKE_LIB",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
           "name": "ENABLE_YAML_CPP",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_ZMQ",
           "value": "False",
           "type": "BOOL"
         }
@@ -237,7 +267,7 @@
         },
         {
           "name": "BOOST_HOME",
-          "value": "C:/Libs/boost_1_71_0",
+          "value": "C:/Libs/boost_1_73_0",
           "type": "STRING"
         },
         {
@@ -266,7 +296,17 @@
           "type": "BOOL"
         },
         {
+          "name": "SPDLOG_MAKE_LIB",
+          "value": "True",
+          "type": "BOOL"
+        },
+        {
           "name": "ENABLE_YAML_CPP",
+          "value": "False",
+          "type": "BOOL"
+        },
+        {
+          "name": "ENABLE_ZMQ",
           "value": "False",
           "type": "BOOL"
         }

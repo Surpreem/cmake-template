@@ -35,7 +35,13 @@ endif()
 
 if(ENABLE_CATCH AND ENABLE_SPDLOG)
     add_executable(spdlog_test example/spdlog_test.cpp)
-    target_link_libraries(spdlog_test PRIVATE Catch2::Catch2 spdlog::spdlog)
+
+    if(SPDLOG_MAKE_LIB)
+        target_link_libraries(spdlog_test PRIVATE Catch2::Catch2 spdlog::spdlog)
+    else()
+        target_link_libraries(spdlog_test PRIVATE Catch2::Catch2 spdlog::spdlog_header_only)
+    endif()
+
     add_test(NAME test_spdlog COMMAND spdlog_test)
 endif()
 
@@ -43,4 +49,10 @@ if(ENABLE_CATCH AND ENABLE_YAML_CPP)
     add_executable(yaml_test example/yaml_test.cpp)
     target_link_libraries(yaml_test PRIVATE Catch2::Catch2 yaml-cpp)
     add_test(NAME test_yaml COMMAND yaml_test)
+endif()
+
+if(ENABLE_CATCH AND ENABLE_ZMQ)
+    add_executable(zmq_test example/zmq_test.cpp)
+    target_link_libraries(zmq_test PRIVATE Catch2::Catch2 cppzmq)
+    add_test(NAME test_zmq COMMAND zmq_test)
 endif()

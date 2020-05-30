@@ -46,6 +46,7 @@ option(ENABLE_FLATBUFFERS "Enable Flatbuffers")
 option(ENABLE_GOOGLE_TEST "Enable Google Test and Mock")
 option(ENABLE_SPDLOG "Enable spdlog")
 option(ENABLE_YAML_CPP "Enable Yaml-cpp")
+option(ENABLE_ZMQ "Enable ZeroMQ")
 
 #
 # Asio C++
@@ -149,7 +150,9 @@ if(ENABLE_SPDLOG)
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
 
-    add_compile_definitions(SPDLOG_COMPILED_LIB)
+    if(SPDLOG_MAKE_LIB)
+        add_compile_definitions(SPDLOG_COMPILED_LIB)
+    endif()
 
     add_subdirectory(${spdlog_SOURCE_DIR} ${spdlog_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
@@ -168,6 +171,38 @@ if(ENABLE_YAML_CPP)
 
     add_subdirectory(${yamlcpp_SOURCE_DIR} ${yamlcpp_BINARY_DIR} EXCLUDE_FROM_ALL)
     #include_directories(${yamlcpp_SOURCE_DIR}/include)
+endif()
+
+#
+# ZeroMQ
+if(ENABLE_ZMQ)
+    download_project(
+        PROJ libzmq
+        GIT_REPOSITORY https://github.com/zeromq/libzmq
+        GIT_TAG v4.3.2
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
+
+    set(WITH_PERF_TOOL OFF CACHE BOOL "Enables the build of performance tools. Default value is ON." FORCE)
+    set(ZMQ_BUILD_TESTS OFF CACHE BOOL "Builds ZeroMQ tests. Default value is ON." FORCE)
+    set(ENABLE_CPACK OFF CACHE BOOL "Enables CPack build rules. This option has effect on Windows platform only. Default value is ON." FORCE)
+
+    add_subdirectory(${libzmq_SOURCE_DIR} ${libzmq_BINARY_DIR} EXCLUDE_FROM_ALL)
+
+    #
+    # cppzmq
+    download_project(
+        PROJ cppzmq
+        GIT_REPOSITORY https://github.com/zeromq/cppzmq
+        GIT_TAG v4.6.0
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+    )
+
+    # when cannot find libzmq
+    set(ZeroMQ_DIR ${libzmq_BINARY_DIR})
+
+    add_subdirectory(${cppzmq_SOURCE_DIR} ${cppzmq_BINARY_DIR} EXCLUDE_FROM_ALL)
+
 endif()
 
 #
@@ -191,15 +226,18 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     # for Visual Studio (use when the warning occurs)
     # boost: https://github.com/boostorg/beast/issues/1272
 
-    # yaml-cpp
-    # warning STL4009
-    # - std::allocator<void> is deprecated in C++17.
-    #add_compile_definitions(_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING)
-    
-    # Trompeloeil
-    # warning STL4015
-    # - The std::iterator class template (used as a base class to provide typedefs) is deprecated in C++17.
-    add_compile_definitions(_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING)
+    if(ENABLE_CATCH)
+        # Trompeloeil
+        # warning STL4015
+        # - The std::iterator class template (used as a base class to provide typedefs) is deprecated in C++17.
+        add_compile_definitions(_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING)
+    endif()
+
+    if(ENABLE_YAML_CPP)
+        # warning STL4009
+        # - std::allocator<void> is deprecated in C++17.
+        #add_compile_definitions(_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING)
+    endif()
 
     # for using windows environment variables
     # https://cmake.org/cmake/help/latest/policy/CMP0074.html
