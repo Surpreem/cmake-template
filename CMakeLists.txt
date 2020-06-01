@@ -178,7 +178,7 @@ endif()
 if(ENABLE_ZMQ)
     download_project(
         PROJ libzmq
-        GIT_REPOSITORY https://github.com/zeromq/libzmq
+        GIT_REPOSITORY https://github.com/zeromq/libzmq.git
         GIT_TAG v4.3.2
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
@@ -193,10 +193,12 @@ if(ENABLE_ZMQ)
     # cppzmq
     download_project(
         PROJ cppzmq
-        GIT_REPOSITORY https://github.com/zeromq/cppzmq
+        GIT_REPOSITORY https://github.com/zeromq/cppzmq.git
         GIT_TAG v4.6.0
         ${UPDATE_DISCONNECTED_IF_AVAILABLE}
     )
+
+    set(CPPZMQ_BUILD_TESTS OFF CACHE BOOL "Builds cppzmq tests. Default value is ON." FORCE)
 
     # when cannot find libzmq
     set(ZeroMQ_DIR ${libzmq_BINARY_DIR})
