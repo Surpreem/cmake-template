@@ -1,5 +1,15 @@
 ﻿cmake_minimum_required(VERSION 3.12)
 
+# display current compiler options
+# - place this statement before project()
+# - delete CMake cache and regenerate it
+# - check your IDE's output display window
+#
+# to change compiler's default options
+# - change compiler options in compiler_options.cmake
+# - delete CMake cache and recreate it
+set(CMAKE_USER_MAKE_RULES_OVERRIDE "${CMAKE_CURRENT_LIST_DIR}/cmake/compiler_options.cmake")
+
 project(cmake_template)
 
 # Project basic path
@@ -62,7 +72,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_definitions(_WIN32_WINNT=0x0601)
     add_compile_definitions(_UNICODE)
     add_compile_definitions(UNICODE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
+    add_compile_options(/W4 /WX)
 
     # for Visual Studio (use when the warning occurs)
     # boost: https://github.com/boostorg/beast/issues/1272
@@ -87,7 +97,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     # For Visual Studio solution
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-long-long -pedantic -Werror")
+    add_compile_options(-Wall -Wextra -Wno-long-long -Wconversion -pedantic -Werror)
 endif()
 
 add_subdirectory(src)
