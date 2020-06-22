@@ -46,7 +46,6 @@ endif()
 # Include
 include(CTest)
 include(cmake/DownloadProject.cmake)
-include(cmake/external_projects.cmake)
 
 
 # External projects
@@ -58,6 +57,8 @@ option(ENABLE_GOOGLE_TEST "Enable Google Test and Mock")
 option(ENABLE_SPDLOG "Enable spdlog")
 option(ENABLE_YAML_CPP "Enable Yaml-cpp")
 option(ENABLE_ZMQ "Enable ZeroMQ")
+
+include(cmake/external_projects.cmake)
 
 
 # C++ standard version
@@ -97,6 +98,11 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     # For Visual Studio solution
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if(WIN32)
+        # to fix 'too many sections' and 'File too big' compile error of obj files
+        add_compile_options(-Wa,-mbig-obj)
+    endif()
+
     add_compile_options(-Wall -Wextra -Wno-long-long -Wconversion -pedantic -Werror)
 endif()
 
