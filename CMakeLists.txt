@@ -78,17 +78,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     # for Visual Studio (use when the warning occurs)
     # boost: https://github.com/boostorg/beast/issues/1272
 
-    if(ENABLE_CATCH)
+    if(ENABLE_CATCH OR ENABLE_YAML_CPP)
         # Trompeloeil
+        # yaml-cpp
         # warning STL4015
         # - The std::iterator class template (used as a base class to provide typedefs) is deprecated in C++17.
         add_compile_definitions(_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING)
-    endif()
-
-    if(ENABLE_YAML_CPP)
-        # warning STL4009
-        # - std::allocator<void> is deprecated in C++17.
-        #add_compile_definitions(_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING)
     endif()
 
     # for using windows environment variables
